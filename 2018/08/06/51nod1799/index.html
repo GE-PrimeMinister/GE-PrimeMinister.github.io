@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/UFP.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/UFP-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/UFP-16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="传送门 对，这题的确跟二分搜索没太大关系 但还是加一个二分的标签吧2333">
+<meta property="og:type" content="article">
+<meta property="og:title" content="51nod 1799 二分答案">
+<meta property="og:url" content="http://yoursite.com/2018/08/06/51nod1799/index.html">
+<meta property="og:site_name" content="Stardust">
+<meta property="og:description" content="传送门 对，这题的确跟二分搜索没太大关系 但还是加一个二分的标签吧2333">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-08-06T08:53:47.000Z">
+<meta property="article:modified_time" content="2020-08-05T11:08:06.296Z">
+<meta property="article:author" content="PrimeMinister">
+<meta property="article:tag" content="二分">
+<meta property="article:tag" content="组合数学">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/08/06/51nod1799/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>51nod 1799 二分答案 | Stardust</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Stardust</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>所有文章</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/51nod1799/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ava.jpg">
+      <meta itemprop="name" content="PrimeMinister">
+      <meta itemprop="description" content="我没有被谁记住,所以也不会被谁忘记 在别人记忆中生活,并不是我的目的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stardust">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          51nod 1799 二分答案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-08-06 16:53:47" itemprop="dateCreated datePublished" datetime="2018-08-06T16:53:47+08:00">2018-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-05 19:08:06" itemprop="dateModified" datetime="2020-08-05T19:08:06+08:00">2020-08-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OI/" itemprop="url" rel="index"><span itemprop="name">OI</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/08/06/51nod1799/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/08/06/51nod1799/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a target="_blank" rel="noopener" href="http://www.51nod.com/onlineJudge/questionCode.html#!problemId=1799">传送门</a></p>
+<p>对，这题的确跟二分搜索没太大关系</p>
+<p>但还是加一个二分的标签吧2333</p>
+<a id="more"></a>
+<h2 id="solution">Solution</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.wikiwand.com/zh/%E6%9C%9F%E6%9C%9B%E5%80%BC">期望是啥</a></li>
+<li>其实就是求有多少种排列使得二分最后<span class="math inline">\(r = k\)</span></li>
+<li>二分过程中，决定下一步向哪儿走的自然是<span class="math inline">\(mid\)</span>处的值</li>
+<li>如果此时<span class="math inline">\(mid \leq k\)</span>,要使最终<span class="math inline">\(r = k\)</span>,则必有<span class="math inline">\(a[mid] \leq m\)</span></li>
+<li><span class="math inline">\(mid \gt k \rightarrow a[mid] \gt m\)</span></li>
+<li>成为<span class="math inline">\(mid\)</span>的数的位置是确定了的,我们只用确保这些位置上的数满足上述约束条件即可</li>
+<li>剩下的数无论怎么排都对答案没影响，所有方案数就是个阶乘，与满足上面的相乘便是答案</li>
+<li>将部分阶乘打表(每隔<span class="math inline">\(1e7\)</span>打一个)，使得计算次数在<span class="math inline">\(10^7\)</span>之内</li>
+</ul>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 10000005</span></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(T &amp;a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T ret(0),f(1);char ch(getchar());</span><br><span class="line">    <span class="keyword">while</span>(ch &lt; <span class="string">&#x27;0&#x27;</span> || ch &gt; <span class="string">&#x27;9&#x27;</span>)&#123;<span class="keyword">if</span>(ch == <span class="string">&#x27;-&#x27;</span>) f = <span class="number">-1</span>;ch = getchar();&#125;</span><br><span class="line">    <span class="keyword">while</span>(ch &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; ch &lt;= <span class="string">&#x27;9&#x27;</span>)&#123;ret = (ret &lt;&lt; <span class="number">2</span>) + ret,ret += ret + (ch ^ <span class="number">48</span>);ch = getchar();&#125;</span><br><span class="line">    a = ret * f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1000000007</span>,blo = <span class="number">1e7</span>;</span><br><span class="line">ll fact[] = &#123;<span class="number">1</span>,<span class="number">682498929</span>,<span class="number">491101308</span>,<span class="number">76479948</span>,<span class="number">723816384</span>,<span class="number">67347853</span>,<span class="number">27368307</span>,<span class="number">625544428</span>,<span class="number">199888908</span>,<span class="number">888050723</span>,<span class="number">927880474</span>,<span class="number">281863274</span>, <span class="number">661224977</span>, <span class="number">623534362</span>, <span class="number">970055531</span>, <span class="number">261384175</span>, <span class="number">195888993</span>,<span class="number">66404266</span>, <span class="number">547665832</span>, <span class="number">109838563</span>, <span class="number">933245637</span>, <span class="number">724691727</span>, <span class="number">368925948</span>,</span><br><span class="line"><span class="number">268838846</span>,<span class="number">136026497</span>,<span class="number">112390913</span>,<span class="number">135498044</span>,<span class="number">217544623</span>,<span class="number">419363534</span>,<span class="number">500780548</span>,<span class="number">668123525</span>,<span class="number">128487469</span>,<span class="number">30977140</span>,<span class="number">522049725</span>, <span class="number">309058615</span>,<span class="number">386027524</span>, <span class="number">189239124</span>, <span class="number">148528617</span>, <span class="number">940567523</span>, <span class="number">917084264</span>, <span class="number">429277690</span>,</span><br><span class="line"><span class="number">996164327</span>,<span class="number">358655417</span>,<span class="number">568392357</span>,<span class="number">780072518</span>,<span class="number">462639908</span>,<span class="number">275105629</span>,<span class="number">909210595</span>,<span class="number">99199382</span>,<span class="number">703397904</span>,<span class="number">733333339</span>,<span class="number">97830135</span>, <span class="number">608823837</span>,<span class="number">256141983</span>, <span class="number">141827977</span>, <span class="number">696628828</span>, <span class="number">637939935</span>, <span class="number">811575797</span>, <span class="number">848924691</span>,<span class="number">131772368</span>, <span class="number">724464507</span>, <span class="number">272814771</span>, <span class="number">326159309</span>, <span class="number">456152084</span>, <span class="number">903466878</span>,</span><br><span class="line"><span class="number">92255682</span>,<span class="number">769795511</span>,<span class="number">373745190</span>,<span class="number">606241871</span>,<span class="number">825871994</span>,<span class="number">957939114</span>,<span class="number">435887178</span>,<span class="number">852304035</span>,<span class="number">663307737</span>,<span class="number">375297772</span>,<span class="number">217598709</span>, <span class="number">624148346</span>,<span class="number">671734977</span>, <span class="number">624500515</span>, <span class="number">748510389</span>, <span class="number">203191898</span>, <span class="number">423951674</span>, <span class="number">629786193</span>,</span><br><span class="line"><span class="number">672850561</span>,<span class="number">814362881</span>, <span class="number">823845496</span>,<span class="number">116667533</span>,<span class="number">256473217</span>,<span class="number">627655552</span>,<span class="number">245795606</span>,<span class="number">586445753</span>,<span class="number">172114298</span>,<span class="number">193781724</span>,<span class="number">778983779</span>, <span class="number">83868974</span>,<span class="number">315103615</span>, <span class="number">965785236</span>, <span class="number">492741665</span>, <span class="number">377329025</span>, <span class="number">847549272</span>, <span class="number">698611116</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> ll <span class="title">cal</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> ll ret = fact[x / blo];</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i(x / blo * blo + <span class="number">1</span>);i &lt;= x;i++)</span><br><span class="line">     ret = (ret * i) % mod;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//想想最后怎么让r = m</span></span><br><span class="line"><span class="comment">//每一次二分的位置都与mid处的值有关，故只用关心mid处的值</span></span><br><span class="line"><span class="comment">//如k在mid左边，则必有a[mid] &gt; m,否则a[mid] &lt;= m</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> n,m,k,cl(<span class="number">0</span>),cr(<span class="number">0</span>),l,r,mid;<span class="function">ll <span class="title">ans</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">    read(n),read(m),read(k);</span><br><span class="line">  l = <span class="number">1</span>,r = n;</span><br><span class="line">  <span class="keyword">while</span>(l &lt;= r)</span><br><span class="line"> &#123;</span><br><span class="line">        mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">if</span>(mid &lt;= k) l = mid + <span class="number">1</span>,++cl;</span><br><span class="line">        <span class="keyword">else</span> r = mid - <span class="number">1</span>,++cr;</span><br><span class="line">   &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(m - cl + <span class="number">1</span>);i &lt;= m;i++)<span class="comment">//&lt;=m的数</span></span><br><span class="line">     ans = (ans * i) % mod;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(n - m - cr + <span class="number">1</span>);i &lt;= n - m;i++)<span class="comment">//n - m - cr!</span></span><br><span class="line">      ans = (ans * i) % mod;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,(ans * cal(n - cl - cr)) % mod);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%8C%E5%88%86/" rel="tag"># 二分</a>
+              <a href="/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/" rel="tag"># 组合数学</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/25/Fools%20and%20Roads/" rel="prev" title="CodeForces - 191C Fools and Roads">
+      <i class="fa fa-chevron-left"></i> CodeForces - 191C Fools and Roads
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/08/07/lamp/" rel="next" title="华丽的吊灯">
+      华丽的吊灯 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#solution"><span class="nav-number">1.</span> <span class="nav-text">Solution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#code"><span class="nav-number">2.</span> <span class="nav-text">Code</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PrimeMinister"
+      src="/images/ava.jpg">
+  <p class="site-author-name" itemprop="name">PrimeMinister</p>
+  <div class="site-description" itemprop="description">我没有被谁记住,所以也不会被谁忘记 在别人记忆中生活,并不是我的目的</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/GE-PrimeMinister" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;GE-PrimeMinister" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:widows9@live.com" title="E-Mail → mailto:widows9@live.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PrimeMinister</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div><script color="0,0,0" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : false,
+      appId      : 'MRBobpa9P7gC05Jly17PImWG-gzGzoHsz',
+      appKey     : 'gIUNc1QECyeLyq5rU2dvCuzP',
+      placeholder: "Think twice,comment once.",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
