@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.luogu.org/upload/pic/2282.png">
 <meta property="article:published_time" content="2018-07-25T05:39:01.000Z">
-<meta property="article:modified_time" content="2020-08-24T15:40:25.409Z">
+<meta property="article:modified_time" content="2020-08-24T15:57:04.117Z">
 <meta property="article:author" content="PrimeMinister">
 <meta property="article:tag" content="图论">
 <meta property="article:tag" content="LCA">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-24 23:40:25" itemprop="dateModified" datetime="2020-08-24T23:40:25+08:00">2020-08-24</time>
+                <time title="修改时间：2020-08-24 23:57:04" itemprop="dateModified" datetime="2020-08-24T23:57:04+08:00">2020-08-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -324,10 +324,11 @@
 <li>写的很好的博客 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/JVxie/p/4854719.html">JVxie</a></li>
 <li>代码</li>
 </ul>
-<h2 id="section"><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 500005</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(T&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> T ret(0),f(1);char ch(getchar());</span><br><span class="line"> <span class="keyword">while</span>(ch &lt; <span class="string">&#x27;0&#x27;</span> || ch &gt; <span class="string">&#x27;9&#x27;</span>)&#123;<span class="keyword">if</span>(ch == <span class="string">&#x27;-&#x27;</span>) f = <span class="number">-1</span>;ch = getchar();&#125;</span><br><span class="line"> <span class="keyword">while</span>(ch &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; ch &lt;= <span class="string">&#x27;9&#x27;</span>)&#123;ret = (ret &lt;&lt; <span class="number">1</span>) + (ret &lt;&lt; <span class="number">3</span>) + (ch ^ <span class="number">48</span>);ch = getchar();&#125;</span><br><span class="line"> a = ret * f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;<span class="keyword">return</span> x &lt; y ? x : y;&#125;</span><br><span class="line"><span class="keyword">int</span> k,k1,head[MAXN],headq[MAXN],p[MAXN],ans[MAXN];</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span><span class="keyword">int</span> v,nxt;&#125;e[MAXN &lt;&lt; <span class="number">1</span> | <span class="number">1</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">que</span>&#123;</span><span class="keyword">int</span> v,nxt,id;<span class="keyword">bool</span> vis;&#125;q[MAXN &lt;&lt; <span class="number">1</span> | <span class="number">1</span>];<span class="comment">//from zero</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;<span class="keyword">return</span> x == p[x] ? x : p[x] = find(p[x]);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    e[++k].v = v;</span><br><span class="line"> e[k].nxt = head[u],head[u] = k;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add_q</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   q[++k1].v = v,q[k1].id = id;</span><br><span class="line">  q[k1].nxt = headq[u],headq[u] = k1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> fa)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v;p[u] = u;<span class="comment">//初始化集合</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i(head[u]);i;i = e[i].nxt)</span><br><span class="line">      <span class="keyword">if</span>((!vis[v = e[i].v]) &amp;&amp; v != fa) tarjan(v,u),p[find(v)] = u;</span><br><span class="line">    vis[u] = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i(headq[u]);i != <span class="number">-1</span>;i = q[i].nxt)</span><br><span class="line">       <span class="keyword">if</span>(!q[i].vis &amp;&amp; vis[q[i].v]) ans[q[i].id] = find(q[i].v),q[i].vis = q[i ^ <span class="number">1</span>].vis = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,q,rt,u,v;k1 = <span class="number">-1</span>;</span><br><span class="line">  read(n),read(q),read(rt);</span><br><span class="line"> <span class="built_in">memset</span>(headq,<span class="number">-1</span>,<span class="keyword">sizeof</span>(headq));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt; n;i++)</span><br><span class="line">      read(u),read(v),add_edge(u,v),add_edge(v,u);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= q;i++)</span><br><span class="line">     read(u),read(v),add_q(u,v,i),add_q(v,u,i);</span><br><span class="line">    tarjan(rt,<span class="number">0</span>);</span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= q;i++)</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 500005</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(T&amp; a)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> T ret(0),f(1);char ch(getchar());</span><br><span class="line"> <span class="keyword">while</span>(ch &lt; <span class="string">&#x27;0&#x27;</span> || ch &gt; <span class="string">&#x27;9&#x27;</span>)&#123;<span class="keyword">if</span>(ch == <span class="string">&#x27;-&#x27;</span>) f = <span class="number">-1</span>;ch = getchar();&#125;</span><br><span class="line"> <span class="keyword">while</span>(ch &gt;= <span class="string">&#x27;0&#x27;</span> &amp;&amp; ch &lt;= <span class="string">&#x27;9&#x27;</span>)&#123;ret = (ret &lt;&lt; <span class="number">1</span>) + (ret &lt;&lt; <span class="number">3</span>) + (ch ^ <span class="number">48</span>);ch = getchar();&#125;</span><br><span class="line"> a = ret * f;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;<span class="keyword">return</span> x &lt; y ? x : y;&#125;</span><br><span class="line"><span class="keyword">int</span> k,k1,head[MAXN],headq[MAXN],p[MAXN],ans[MAXN];</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span><span class="keyword">int</span> v,nxt;&#125;e[MAXN &lt;&lt; <span class="number">1</span> | <span class="number">1</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">que</span>&#123;</span><span class="keyword">int</span> v,nxt,id;<span class="keyword">bool</span> vis;&#125;q[MAXN &lt;&lt; <span class="number">1</span> | <span class="number">1</span>];<span class="comment">//from zero</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;<span class="keyword">return</span> x == p[x] ? x : p[x] = find(p[x]);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add_edge</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    e[++k].v = v;</span><br><span class="line"> e[k].nxt = head[u],head[u] = k;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">add_q</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   q[++k1].v = v,q[k1].id = id;</span><br><span class="line">  q[k1].nxt = headq[u],headq[u] = k1;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> fa)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v;p[u] = u;<span class="comment">//初始化集合</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i(head[u]);i;i = e[i].nxt)</span><br><span class="line">      <span class="keyword">if</span>((!vis[v = e[i].v]) &amp;&amp; v != fa) tarjan(v,u),p[find(v)] = u;</span><br><span class="line">    vis[u] = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">int</span> i(headq[u]);i != <span class="number">-1</span>;i = q[i].nxt)</span><br><span class="line">       <span class="keyword">if</span>(!q[i].vis &amp;&amp; vis[q[i].v]) ans[q[i].id] = find(q[i].v),q[i].vis = q[i ^ <span class="number">1</span>].vis = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n,q,rt,u,v;k1 = <span class="number">-1</span>;</span><br><span class="line">  read(n),read(q),read(rt);</span><br><span class="line"> <span class="built_in">memset</span>(headq,<span class="number">-1</span>,<span class="keyword">sizeof</span>(headq));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt; n;i++)</span><br><span class="line">      read(u),read(v),add_edge(u,v),add_edge(v,u);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= q;i++)</span><br><span class="line">     read(u),read(v),add_q(u,v,i),add_q(v,u,i);</span><br><span class="line">    tarjan(rt,<span class="number">0</span>);</span><br><span class="line"> <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= q;i++)</span><br><span class="line">     <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,ans[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr />
 <h3 id="树剖">树剖</h3>
 <ul>
-<li>来自lyc的优秀方法</li>
+<li>来自lyc(Enzyme125)的优秀方法</li>
 <li>只用一个DFS</li>
 <li>在DFS中求出每个轻重儿子的父亲是谁，查询时利用并查集的思路快速找到一个点所在的链的顶点。（普通树剖则是在第二个DFS中拉轻重链）</li>
 <li>时间复杂度<span class="math inline">\(O(n + qlogn)\)</span></li>
@@ -419,117 +420,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">求法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B"><span class="nav-number">2.1.</span> <span class="nav-text">暴力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%8D%E5%A2%9E"><span class="nav-number">2.2.</span> <span class="nav-text">倍增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmq"><span class="nav-number">2.3.</span> <span class="nav-text">RMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tarjan"><span class="nav-number">2.4.</span> <span class="nav-text">Tarjan</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#section"><span class="nav-number">3.</span> <span class="nav-text">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-#include &lt;cstdio&gt;
-#include &lt;cstdlib&gt;
-#include &lt;cstring&gt;
-#include &lt;algorithm&gt;
-#define ll long long
-#define MAXN 500005
-using namespace std;
-template &lt;typename T&gt;
-inline void read(T&amp; a)
-&amp;#123;
- T ret(0),f(1);char ch(getchar());
- while(ch &lt; &amp;#x27;0&amp;#x27; || ch &gt; &amp;#x27;9&amp;#x27;)&amp;#123;if(ch &#x3D;&#x3D; &amp;#x27;-&amp;#x27;) f &#x3D; -1;ch &#x3D; getchar();&amp;#125;
- while(ch &gt;&#x3D; &amp;#x27;0&amp;#x27; &amp;&amp; ch &lt;&#x3D; &amp;#x27;9&amp;#x27;)&amp;#123;ret &#x3D; (ret &lt;&lt; 1) + (ret &lt;&lt; 3) + (ch ^ 48);ch &#x3D; getchar();&amp;#125;
- a &#x3D; ret * f;
-&amp;#125;
-inline int Min(int x,int y)&amp;#123;return x &lt; y ? x : y;&amp;#125;
-int k,k1,head[MAXN],headq[MAXN],p[MAXN],ans[MAXN];
-bool vis[MAXN];
-struct edge&amp;#123;int v,nxt;&amp;#125;e[MAXN &lt;&lt; 1 | 1];
-struct que&amp;#123;int v,nxt,id;bool vis;&amp;#125;q[MAXN &lt;&lt; 1 | 1];&#x2F;&#x2F;from zero
-inline int find(int x)&amp;#123;return x &#x3D;&#x3D; p[x] ? x : p[x] &#x3D; find(p[x]);&amp;#125;
-inline void add_edge(int u,int v)
-&amp;#123;
-    e[++k].v &#x3D; v;
- e[k].nxt &#x3D; head[u],head[u] &#x3D; k;;
-&amp;#125;
-inline void add_q(int u,int v,int id)
-&amp;#123;
-   q[++k1].v &#x3D; v,q[k1].id &#x3D; id;
-  q[k1].nxt &#x3D; headq[u],headq[u] &#x3D; k1;
-&amp;#125;
-void tarjan(int u,int fa)
-&amp;#123;
-  int v;p[u] &#x3D; u;&#x2F;&#x2F;初始化集合
-  for(int i(head[u]);i;i &#x3D; e[i].nxt)
-      if((!vis[v &#x3D; e[i].v]) &amp;&amp; v !&#x3D; fa) tarjan(v,u),p[find(v)] &#x3D; u;
-    vis[u] &#x3D; 1;
-   for(int i(headq[u]);i !&#x3D; -1;i &#x3D; q[i].nxt)
-       if(!q[i].vis &amp;&amp; vis[q[i].v]) ans[q[i].id] &#x3D; find(q[i].v),q[i].vis &#x3D; q[i ^ 1].vis &#x3D; 1;
-&amp;#125;
-int main()
-&amp;#123;
-    int n,q,rt,u,v;k1 &#x3D; -1;
-  read(n),read(q),read(rt);
- memset(headq,-1,sizeof(headq));
-    for(int i(1);i &lt; n;i++)
-      read(u),read(v),add_edge(u,v),add_edge(v,u);
-  for(int i(1);i &lt;&#x3D; q;i++)
-     read(u),read(v),add_q(u,v,i),add_q(v,u,i);
-    tarjan(rt,0);
- for(int i(1);i &lt;&#x3D; q;i++)
-     printf(&quot;%d\n&quot;,ans[i]);
-    return 0;
-&amp;#125;
-
-</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E5%89%96"><span class="nav-number">3.1.</span> <span class="nav-text">树剖</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">求法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%B4%E5%8A%9B"><span class="nav-number">2.1.</span> <span class="nav-text">暴力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%80%8D%E5%A2%9E"><span class="nav-number">2.2.</span> <span class="nav-text">倍增</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmq"><span class="nav-number">2.3.</span> <span class="nav-text">RMQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tarjan"><span class="nav-number">2.4.</span> <span class="nav-text">Tarjan</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E5%89%96"><span class="nav-number">2.5.</span> <span class="nav-text">树剖</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
