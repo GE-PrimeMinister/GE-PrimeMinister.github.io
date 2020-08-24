@@ -1174,13 +1174,13 @@ Oct,28th 2018
 <li>安装软件时路径尽量不要有中文</li>
 <li>注意不要乱安装来路不明的软件</li>
 </ul>
-<p>##基本操作</p>
+<h2 id="基本操作">基本操作</h2>
 <ul>
 <li><a href="https://sspai.com/post/45594">关于win10的多虚拟桌面使用</a></li>
 <li><a href="https://www.zhihu.com/question/26812365/answer/850878582">快捷键</a></li>
 <li>截图请使用<code>win+PrtScn</code>（保存在个人文件夹/图片/屏幕截图中）或者<code>win+w</code>中使用"全屏截图"，或者安装<a href="https://zh.snipaste.com/">snipaste</a>，<strong>不要用手机拍屏幕！！！</strong></li>
 </ul>
-<p>##硬件(外设)</p>
+<h2 id="硬件外设">硬件(外设)</h2>
 <ul>
 <li><del>考虑到联想国内自带的联想电脑管家弹窗可能有点多，可将其卸载并点击<a href="https://www.microsoft.com/zh-cn/p/lenovo-vantage/9wzdncrfj4mv#activetab=pivot:overviewtab">此处</a>或在win10应用商店中搜索"Lenovo vantage"(其实就是国际版)并安装以替代</del>刚了解了一下，发现它已经从良了，就不用搞了</li>
 <li>由于联想自带的电源适配器过于笨重，可购买<a href="https://item.jd.com/100012368380.html?cu=true&amp;utm_source=kong&amp;utm_medium=tuiguang&amp;utm_campaign=t_1001542270_1001352649_0_1884133294&amp;utm_term=ebb23d1f99d04387a429c9d32341a386">这个</a>(京东学生认证后仅需89，也可购买合适的GaN充电器</li>
