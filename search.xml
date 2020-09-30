@@ -923,10 +923,10 @@ Oct,28th 2018
       </tags>
   </entry>
   <entry>
-    <title>随记</title>
+    <title>余晖</title>
     <url>/2020/07/23/%E9%9A%8F%E8%AE%B0/</url>
     <content><![CDATA[<blockquote>
-<p>应 <span class="math inline">\({\rm Ada \pi}\)</span> 之邀而作，应该会印在毕业纪念册上</p>
+<p>应 <span class="math inline">\({\rm Ada \pi}\)</span> 之邀而作，印在了毕业纪念册上</p>
 </blockquote>
 <blockquote>
 <p><font face="Times New Roman" size = 5>"И снег, и ветер, И звёзд ночной полёт…</font><br> <font face="Times New Roman" size = 5>Меня мое сердце, В тревожную даль зовёт."</font></p>
@@ -934,20 +934,31 @@ Oct,28th 2018
 <a id="more"></a>
 <p>霞光万丈。</p>
 <p>高考截止铃声响起时，教学楼还是那样的寂静，此起彼伏的收卷声慢慢将过去浓缩、化简、提交、批阅后隐于尘埃之中。当一切完成以后，人群随着音乐慢慢的向出口移动――没有过于兴奋的吼声――自从初中以来就是这样了，大家都对考试的结束不再觉得有任何兴奋，只是想着快点回去，该享受享受，该准备下一次准备下一次。较昏暗的天空下，人流涌动，四处分散，不久，雨滴打在了车窗玻璃上。</p>
-<p>最后一次考NOIP时，没有铃声，监考老师大喊着停止写代码之类的话，好丽友面包卷的包装和矿泉水瓶被扔进垃圾口袋，车上到处都是“您太强了”“xxx AK IOI”之类的话语。我呆望着窗外，时处十一月，树秃草枯，但不少人已经知道自己没法在来年四月看到它们再度繁茂了。</p>
+<p>最后一次考NOIP<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>时，没有铃声，监考老师大喊着停止写代码之类的话，好丽友面包卷的包装和矿泉水瓶被扔进垃圾口袋，车上到处都是“您太强了”“xxx AK IOI<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>”之类的话语。我呆望着窗外，时处十一月，树秃草枯，但不少人已经知道自己没法在来年四月看到它们再度繁茂了。</p>
 <p>那天天气很好？反正我依稀记得是这样的，阳光透过车窗照在了椅子上。</p>
 <p>在成外的竞赛生涯始于2017年6月30日的晚上，xyc习惯性将一杯水倒到门外，却忘了在门旁等着的我，所幸水不多。</p>
-<p>同大多数竞赛生一样，我们盼望着晚自习的后两节，周末的竞赛时间。现在看着书柜里早已不用的竞赛书，OJ上做过的题，博客上写的题解和许些牢骚，都不由得感叹那是多么美好而充足的一段时光。算法的激烈讨论，考试时的紧张，讲题时的掌声，这些早已远去，遥不可及，却又像是发生在昨天。大多数人从机房走出，或许会在此回到机房，但不会是那个曾经举办过“联赛”的四号机房，抑或不会是四千元一台低配台式机的七号机房。最初的C++也会变成Python, Java, C#等。足以让隔壁机房听得一清二楚的笑声早已消散在空中，机房后写着毒奶的横幅也成了空白的一片墙壁，还留着许些当时的钉子。</p>
+<p>同大多数竞赛生一样，我们盼望着晚自习的后两节，周末的竞赛时间。现在看着书柜里早已不用的竞赛书，OJ<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>上做过的题，博客上写的题解和许些牢骚，都不由得感叹那是多么美好而充足的一段时光。算法的激烈讨论，考试时的紧张，讲题时的掌声，这些早已远去，遥不可及，却又像是发生在昨天。大多数人从机房走出，或许会再次回到机房，但不会是那个曾经举办过“联赛<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>”的四号机房，抑或不会是四千元一台低配台式机的七号机房。最初的C++<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>也会变成Python, Java, C#等。足以让隔壁机房听得一清二楚的笑声早已消散在空中，机房后写着毒奶的横幅也成了空白的一片墙壁，还留着许些当时的钉子。</p>
 <p>今年欢笑复明年，不知退役在眼前。</p>
 <p>不得不说信息学竞赛是此地五大学科竞赛中最没“人权”的竞赛，停课时间最短，不知何时起被剥夺了晚自习去机房的权利，没有集体外出培训，即使有少数人外出培训，生活条件相比其他竞赛也堪忧。这些或许可以解释一些在外人看来匪夷所思的东西，但都不重要了。</p>
 <p>毕竟，我们笑过，我们迷茫过，我们奋斗过，我们来过。</p>
-<p>多年以后，当我们从一行行代码、编译结果、程序文档上抬起头来时，将会想起初识LCA的那个遥远的上午，那时成外还没有二次装修，到处乱膜拜的风气还没有形成，yhtwd在激烈地与别人争论他的二分算法，阳光穿过蓝色窗帘照在键盘上。</p>
+<p>多年以后，当我们从一行行代码、编译结果、程序文档上抬起头来时，将会想起初识LCA<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>的那个遥远的上午，那时成外还没有二次装修，到处乱膜拜的风气还没有形成，yhtwd在激烈地与别人争论他的二分算法，阳光穿过蓝色窗帘照在键盘上。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>全国青少年信息学奥林匹克联赛(National Olympiad in Informatics in Provinces)，曾因某些原因(￥)于2019年暂停，2020年恢复。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>信息学常用膜拜用语，意为某人在全球总决赛中拿到了满分<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Online Judge,在线评测平台，常用于竞赛做题训练<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>特殊娱乐方式<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>与下文的Python, Java, C#均为计算机编程语言<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>最近公共祖先，图论中的一种问题<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 ]]></content>
       <categories>
         <category>生活</category>
       </categories>
       <tags>
-        <tag>随记</tag>
+        <tag>文学创作</tag>
       </tags>
   </entry>
   <entry>
