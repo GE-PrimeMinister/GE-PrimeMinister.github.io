@@ -112,6 +112,30 @@
       </tags>
   </entry>
   <entry>
+    <title>CodeForces - 460C Present</title>
+    <url>/2018/08/21/CF460C%20Present/</url>
+    <content><![CDATA[<h2 id="题目大意">题目大意</h2>
+<p>小明养了 <span class="math inline">\(n\)</span> 盆花，排成一行，从左到右编号为 <span class="math inline">\(1- n\)</span>，初始第 <span class="math inline">\(i\)</span> 盆花高度为 <span class="math inline">\(h_i\)</span>。小明想在暑假的 <span class="math inline">\(m\)</span> 天里每天浇一次花，每次浇花都浇任意相邻的 <span class="math inline">\(w\)</span> 盆花，花被浇过一次就会长高<span class="math inline">\(1cm\)</span>，小明想知道怎样浇花才能使最矮的花最高。</p>
+<a id="more"></a>
+<h2 id="solution">Solution</h2>
+<p>最大最小<span class="math inline">\(\longrightarrow\)</span>二分！</p>
+<p>想到了二分思路就比较明显了，二分最矮的最高高度，<code>check</code>时检查要达到这个高度所需浇水的天数是否大于<span class="math inline">\(m\)</span></p>
+<p>当一盆花高度没达到二分的值时，就以它为左端点，向右浇<span class="math inline">\(m\)</span>盆花(这样能保证被浇到的花最多)。所需天数则加上它和二分的值的差。</p>
+<p>关键在于浇花这个过程，如果直接一盆盆去浇，就会TLE</p>
+<p>这个过程就是一个区间修改、单点查询的过程，就可以用一个数据结构来维护这个浇的水，也可以用差分（写着简单）</p>
+<h2 id="code">Code</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,w;ll a[MAXN],ts[MAXN];<span class="comment">//ts:维护浇的水</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;<span class="keyword">return</span> x &lt; y ? x : y;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">check</span><span class="params">(ll x)</span><span class="comment">//差分！</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ret(0),sum(0),t;</span><br><span class="line">    <span class="built_in">memset</span>(ts,<span class="number">0</span>,<span class="keyword">sizeof</span>(ts));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= n &amp;&amp; ret &lt;= m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += ts[i];</span><br><span class="line">        <span class="keyword">if</span>(a[i] + sum &lt; x)</span><br><span class="line">        &#123;</span><br><span class="line">            ret += (t = x - a[i] - sum);</span><br><span class="line">            sum += t,ts[Min(n + <span class="number">1</span>,i + w)] -= t;<span class="comment">//n + 1::最后一个点有可能不会改到</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret &lt;= m;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll l,r,mid,ans;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;n,&amp;m,&amp;w);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,a + i);</span><br><span class="line">    l = <span class="number">1</span>,r = <span class="number">2e9</span>;</span><br><span class="line">    <span class="keyword">while</span>(l &lt;= r)</span><br><span class="line">    &#123;</span><br><span class="line">        mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(check(mid)) ans = mid,l = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>OI</category>
+      </categories>
+      <tags>
+        <tag>贪心</tag>
+        <tag>二分</tag>
+        <tag>差分</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Codeforces 450D Jzzhu and Cities</title>
     <url>/2018/08/22/CF450D%20Jzzhu%20and%20Cities/</url>
     <content><![CDATA[<h2 id="题目大意">题目大意</h2>
@@ -139,30 +163,6 @@
       <tags>
         <tag>图论</tag>
         <tag>最短路</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CodeForces - 460C Present</title>
-    <url>/2018/08/21/CF460C%20Present/</url>
-    <content><![CDATA[<h2 id="题目大意">题目大意</h2>
-<p>小明养了 <span class="math inline">\(n\)</span> 盆花，排成一行，从左到右编号为 <span class="math inline">\(1- n\)</span>，初始第 <span class="math inline">\(i\)</span> 盆花高度为 <span class="math inline">\(h_i\)</span>。小明想在暑假的 <span class="math inline">\(m\)</span> 天里每天浇一次花，每次浇花都浇任意相邻的 <span class="math inline">\(w\)</span> 盆花，花被浇过一次就会长高<span class="math inline">\(1cm\)</span>，小明想知道怎样浇花才能使最矮的花最高。</p>
-<a id="more"></a>
-<h2 id="solution">Solution</h2>
-<p>最大最小<span class="math inline">\(\longrightarrow\)</span>二分！</p>
-<p>想到了二分思路就比较明显了，二分最矮的最高高度，<code>check</code>时检查要达到这个高度所需浇水的天数是否大于<span class="math inline">\(m\)</span></p>
-<p>当一盆花高度没达到二分的值时，就以它为左端点，向右浇<span class="math inline">\(m\)</span>盆花(这样能保证被浇到的花最多)。所需天数则加上它和二分的值的差。</p>
-<p>关键在于浇花这个过程，如果直接一盆盆去浇，就会TLE</p>
-<p>这个过程就是一个区间修改、单点查询的过程，就可以用一个数据结构来维护这个浇的水，也可以用差分（写着简单）</p>
-<h2 id="code">Code</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 100005</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,w;ll a[MAXN],ts[MAXN];<span class="comment">//ts:维护浇的水</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Min</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;<span class="keyword">return</span> x &lt; y ? x : y;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">check</span><span class="params">(ll x)</span><span class="comment">//差分！</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ret(0),sum(0),t;</span><br><span class="line">    <span class="built_in">memset</span>(ts,<span class="number">0</span>,<span class="keyword">sizeof</span>(ts));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= n &amp;&amp; ret &lt;= m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += ts[i];</span><br><span class="line">        <span class="keyword">if</span>(a[i] + sum &lt; x)</span><br><span class="line">        &#123;</span><br><span class="line">            ret += (t = x - a[i] - sum);</span><br><span class="line">            sum += t,ts[Min(n + <span class="number">1</span>,i + w)] -= t;<span class="comment">//n + 1::最后一个点有可能不会改到</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret &lt;= m;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll l,r,mid,ans;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d%d&quot;</span>,&amp;n,&amp;m,&amp;w);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i(<span class="number">1</span>);i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,a + i);</span><br><span class="line">    l = <span class="number">1</span>,r = <span class="number">2e9</span>;</span><br><span class="line">    <span class="keyword">while</span>(l &lt;= r)</span><br><span class="line">    &#123;</span><br><span class="line">        mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(check(mid)) ans = mid,l = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>OI</category>
-      </categories>
-      <tags>
-        <tag>贪心</tag>
-        <tag>二分</tag>
-        <tag>差分</tag>
       </tags>
   </entry>
   <entry>
@@ -696,6 +696,44 @@
       </tags>
   </entry>
   <entry>
+    <title>电脑使用指南</title>
+    <url>/2020/08/21/how_to_use_computer_correctly/</url>
+    <content><![CDATA[<p><strong>建议在电脑上打开此文阅读</strong></p>
+<a id="more"></a>
+<h2 id="软件">软件</h2>
+<ul>
+<li>浏览器：<a href="https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B84587115-C6CA-1C8C-3838-F68C04C64A3C%7D%26lang%3Dzh-CN%26browser%3D4%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe">Chrome</a>(可以把联想浏览器卸了
+<ul>
+<li>chrome中推荐使用的插件：<a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?utm_source=chrome-ntp-icon">uBlock Origin</a> <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?utm_source=chrome-ntp-icon">Tampermonkey</a>(<a href="https://mp.weixin.qq.com/s?__biz=MzIyMjg2ODExMA==&amp;mid=2247484033&amp;idx=1&amp;sn=1d75f73d10e56d105f35d0c2e1b16d86&amp;scene=21#wechat_redirect">使用指南</a>)</li>
+</ul></li>
+<li>杀毒软件：<a href="https://www.huorong.cn/">火绒</a> 选择个人用户版下载 安好后记得在“安全工具”中开启弹窗拦截</li>
+<li>解压软件：<a href="https://cn.bandisoft.com/bandizip/">Bandzip</a></li>
+<li>播放软件：<a href="https://potplayer.daum.net/">PotPlayer</a></li>
+<li>Office的安装(部署)：<a href="https://otp.landian.vip/zh-cn/">Office Tool Plus</a></li>
+<li>ppt辅助工具：<a href="https://www.islide.cc/">islide</a></li>
+<li>系统设置与优化：<a href="https://www.chuyu.me/zh-Hans/">Dism++</a></li>
+<li><a href="https://support.microsoft.com/zh-cn/help/17205/windows-10-create-films-with-video-editor">win10自带的视频编辑器</a> <a href="https://zhuanlan.zhihu.com/p/58116160">其他教程</a></li>
+<li>安装软件时路径尽量不要有中文</li>
+<li>注意不要乱安装来路不明的软件</li>
+</ul>
+<h2 id="基本操作">基本操作</h2>
+<ul>
+<li><a href="https://sspai.com/post/45594">关于win10的多虚拟桌面使用</a></li>
+<li><a href="https://www.zhihu.com/question/26812365/answer/850878582">快捷键</a></li>
+<li>截图请使用<code>win+PrtScn</code>（保存在个人文件夹/图片/屏幕截图中）或者<code>win+w</code>中使用"全屏截图"，或者安装<a href="https://zh.snipaste.com/">snipaste</a>，<strong>不要用手机拍屏幕！！！</strong></li>
+</ul>
+<h2 id="硬件外设">硬件(外设)</h2>
+<ul>
+<li><del>考虑到联想国内自带的联想电脑管家弹窗可能有点多，可将其卸载并点击<a href="https://www.microsoft.com/zh-cn/p/lenovo-vantage/9wzdncrfj4mv#activetab=pivot:overviewtab">此处</a>或在win10应用商店中搜索"Lenovo vantage"(其实就是国际版)并安装以替代</del>刚了解了一下，发现它已经从良了，就不用搞了</li>
+<li>由于联想自带的电源适配器过于笨重，可购买<a href="https://item.jd.com/100012368380.html?cu=true&amp;utm_source=kong&amp;utm_medium=tuiguang&amp;utm_campaign=t_1001542270_1001352649_0_1884133294&amp;utm_term=ebb23d1f99d04387a429c9d32341a386">这个</a>(京东学生认证后仅需89，也可购买合适的GaN充电器</li>
+<li>未完待续？</li>
+</ul>
+]]></content>
+      <categories>
+        <category>电脑使用相关</category>
+      </categories>
+  </entry>
+  <entry>
     <title>华丽的吊灯</title>
     <url>/2018/08/07/lamp/</url>
     <content><![CDATA[<h2 id="题面">题面</h2>
@@ -848,6 +886,39 @@
         <tag>图论</tag>
         <tag>最短路</tag>
         <tag>模拟赛</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>乌拉</title>
+    <url>/2021/06/22/ypa/</url>
+    <content><![CDATA[<blockquote>
+<p>乌拉乌拉！</p>
+</blockquote>
+<a id="more"></a>
+<p>多年以后，看着平视显示器<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>瞄准线后的成外遗址，乌拉·格里芬·钨钼铬·龟上校将会想起他见识竹子间也有高低贵贱之分的那个遥远的晚自习。当时正值高三下期，国际间的种种大事要等到一段时间后才会被冠以“导火索”一名，成外已经大修了一次，中华园树荫中投下星星点点大功率探照灯的灯光，喷泉不知疲倦地流淌着，五楼窗外的树在白炽灯的照耀下反射出惨惨绿光。他喝着酸奶，思索着电脑与飞机间的种种时，语文老师抱着作业，带着一股怒气走进了教室。乌拉·龟心头一紧，即使不动用他那如EODAS<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>一样敏锐的飞行员视力远眺，也知道盖在作业上面上的那张单子是花名册——一个人交了作业打个勾。该来的总会来的，乌拉·龟想到，尽管他精准计算，预判出老师什么时候会亲自查作业，什么时候不会，进而免除作业之苦，享受难得的美好时光，可惜这次失效了。乌拉·龟发呆之余，语文老师的怒火已经撒在了几个倒霉蛋的头上。乌拉·龟本等着这股火一连串烧到自己身上来，可当老师叫到信息班的人生赢家，快乐源泉，垃圾袋鼠，成绩不知道比他好到哪里去了的唐·伟大的·高翔时，火突然熄了，语气陡然一转，速度之快让米格-25<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>甘拜下风，“xxx，作业怎么不交就勾名字了呢？”温和得像是在对她家的那两只猫说话（猫，乌拉·龟想起几周前奇肯·邵<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>向他展示的得意之作，不由得身子一颤）。很快，信息班的人生赢家，快乐源泉，垃圾袋鼠，唐·伟大的·高翔坐下了，他隐约想起了什么，一个念头在脑中模糊形成，“乌拉·龟！”，火又燃了起来，他一惊，把吸管从口中拽出，站了起来，还没来得及吞下那一口酸奶，就听到了那句“飞机开稳起了撒”。几声窃笑后，接着是老师的长篇大论。终于，他坐了下来，想起了那个念头，“竹子也有高低贵贱之分”，而他们之前只知道熊猫和竹子有高低贵贱之分，现在，恐怕得加一条了。三个月后，他带领群友来到了江苏省苏州市虎丘的一片竹林，四周的竹子在八月的阳光下高低错落，随风摇曳，乌拉·龟因为没有带三脚架而不得找了一位清洁大妈来帮忙，在那里拍下了一张颇有纪念意义的合照，照片上他手拿折扇，身着白色T恤，与十七年后他再次碰见失踪了十三年的首相时一般无二。三天后，他们结束了这次短暂的旅行，各奔东西，但无论是和平时光，还是战火纷飞的日子，无论是过去的聊天群，还是加密频道上的滴答，仍旧定期活跃，如同永远也谱不完的乐章。</p>
+<p>飞近一些时，他虽知道主教学楼早就在一场武器测试中灰飞烟灭，但还是探起身子，试图在一片瓦砾却又标记分明的靶场中寻找它存在过的痕迹。当成飞将那一片地区划为靶场时，乌拉·龟和另外几个来自成外的飞行员心中充斥着一种说不出的兴奋，蠢蠢欲动，有时就像他们前几年执行每一次可能一去不返的任务之前那样，对着卫星图指指点点。很快，新的测试任务下达了——新型小当量对地攻击导弹，威力客观却几乎不产生任何污染，很完美地符合了在北美和西欧清除对战败不甘心的一些复国组织的据点却不怎么破坏环境这一要求。言俊——乌拉·龟的高中同学，抽中了试射的签。后来的事他们都在基地的大屏幕上看到了，蓝得仿佛融入天空的导弹轻盈划过天际，不知是有意为之还是几率使然，精确地穿过了没剩几块玻璃的窗户，钻入了五楼那个语文老师不断发卷子，数学老师用着永远不换模板的幻灯片，英语老师笑着听同学唱歌，物理老师强调着互感，化学老师承诺着从没有去做过的实验，生物老师精准定位教材，体育老师守过晚自习的教室，各个教室楼层间隔阂终于被打通，残存的玻璃还没来得及破碎就化为液滴，曾经在学生的欢笑和咒骂中注定长存千年的教学楼瞬间土崩瓦解，砖瓦水泥落地的叹息久久的回荡在偌大的靶场上，知道三个月后另一枚空地系列的导弹将剩下的三栋半寝室楼贯穿才散去。乌拉·龟穿过像影子一样来来往往的地勤人员来到言俊的战机旁时，他正取下头盔，兴奋的眼睛如古时氖气大灯一样闪烁，和乌拉·龟一路的何克非随即感叹道，他上一次见到如此闪烁的目光除了胜利日就是五年前在东京郊外将一位飞行员从歼-20的残骸中拖出来时，尽管下半身血流不止，意识不清，那位飞行员却仍兴奋地高喊“老子打下一架F-22B！老子打下一架F-22B！”看着他兴奋的眼睛，何克非很想告诉他，要不是兴奋过度而忽略了那架F-35,你就不会在这儿了，但碍于他的伤势，还是没有说出口，而是以安慰的口吻说着赞赏性的话，和战友一起将他抬上担架，送上武装医疗车，返回基地。晚饭时言俊挥舞着筷子，仍激动地诉说着炸掉教学楼的快感，乌拉·龟和何克非也兴奋地说那教学楼食堂宿舍早该完蛋了，却又突然安静下来，三人无言地靠在椅背上，怅然看着筷子。是的，教学楼没了。那几天乌拉·龟常在梦中漫步于教学楼四楼永无尽头的走廊中，尽管教室中时钟都指向上午九点二十五分，夕阳的余晖却透过窗户渗进灰白的墙上，树林的叹息吹起桌上细小的尘土在空中闪闪发光。机房门开着，所有电脑屏幕上滚动着代码。虽时隔多日，乌拉·龟却一眼认出那是他之前写的二分求LCA<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>，心中不由得生出一种亲切感。门口穿着水手服的黑发少女一闪而过，面孔熟悉却又消失在记忆的迷宫中，乌拉·龟想出门看个究竟，却踩穿了机房年久失修的地板，在无尽的坠落中猛然惊醒。第二天他再次回到梦境时，课桌和黑板上开出了绿色的小花，灰白的墙上人渗着余晖，窗外确实无边无际的大海，海水漫不经心地拍打着教学楼下的沙滩，礁石上的小孔反射出星星点点诡微的光，早已废弃的船只搁浅在乱石滩中，水底绵延不断的建筑被浸泡得残破不堪，仍无言地诉说着过去文明地辉煌。他再也没见过那个黑发少女，她谁也就无从得知。直到五个月后他偶然碰见来基地的首相，心中才有了答案。</p>
+<p>出于某种原因，靶子设在往日的操场上，而不是教学楼曾在的那片空地（坑早被填上了）。乌拉·龟从低空掠过那栋复合材料建筑，再掉过头来，侧身看着看台的遗址，这可能是学校现存的唯一建筑，断壁残垣间杂草丛生，开着许些小花，还有几只兔子再嬉戏。兔子？乌拉·龟回过神来，草丛间已无兔子的踪影，他这才把伸向通讯开关的手缩了回来。</p>
+<p>接下来要做的事就很简单了，回到任务高度，打开保险，锁定目标，按下手柄上那个红色按钮。</p>
+<p>乌拉·龟凝视着那一团升起的烟雾。</p>
+<p>“呼叫测试-1，这里是指挥中心，目标确认机会，数据收集完毕，可以返航。”</p>
+<p>“测试-1收到。”</p>
+<p>乌拉·龟调转机头，最后回头看了一眼，打开加力，涡扇-37的轰鸣划过蓝天，很快，乌拉·龟的歼-27超过了第一宇宙速度，向着轨道上的基地飞去。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>平视显示器：是指将主要驾驶仪表姿态指引指示器和主要飞行参数投影到驾驶员的头盔前或风挡玻璃上的一种显示设备。使得驾驶员向前平视机外的前方视景时能同时看到主要驾驶仪表及其重要的飞行参数。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>EODAS：光电分布式孔径系统（Electro-Optical Distributed Aperture System）是一种红外光电传感器，主要应用于高分辨率动态成像，能将所成像细节最大化，体型小巧。<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>米格-25：МиГ-25 “Foxbat”,苏联在1960年代研制部署的一种高空高速截击机，空速可达3.2马赫。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>奇肯·邵：著名生物学家，在基因编辑、动物细胞全能型表达、生物定向自主进化方面颇有建树，在与克莱尔教授进行了那场著名的生物学辩论后失踪，下落不明。<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>LCA：最近公共祖先，图论问题的一种。<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>文学创作</tag>
       </tags>
   </entry>
   <entry>
@@ -1163,44 +1234,6 @@ Oct,28th 2018
 ]]></content>
       <categories>
         <category>Music</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>电脑使用指南</title>
-    <url>/2020/08/21/how_to_use_computer_correctly/</url>
-    <content><![CDATA[<p><strong>建议在电脑上打开此文阅读</strong></p>
-<a id="more"></a>
-<h2 id="软件">软件</h2>
-<ul>
-<li>浏览器：<a href="https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B84587115-C6CA-1C8C-3838-F68C04C64A3C%7D%26lang%3Dzh-CN%26browser%3D4%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe">Chrome</a>(可以把联想浏览器卸了
-<ul>
-<li>chrome中推荐使用的插件：<a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm?utm_source=chrome-ntp-icon">uBlock Origin</a> <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?utm_source=chrome-ntp-icon">Tampermonkey</a>(<a href="https://mp.weixin.qq.com/s?__biz=MzIyMjg2ODExMA==&amp;mid=2247484033&amp;idx=1&amp;sn=1d75f73d10e56d105f35d0c2e1b16d86&amp;scene=21#wechat_redirect">使用指南</a>)</li>
-</ul></li>
-<li>杀毒软件：<a href="https://www.huorong.cn/">火绒</a> 选择个人用户版下载 安好后记得在“安全工具”中开启弹窗拦截</li>
-<li>解压软件：<a href="https://cn.bandisoft.com/bandizip/">Bandzip</a></li>
-<li>播放软件：<a href="https://potplayer.daum.net/">PotPlayer</a></li>
-<li>Office的安装(部署)：<a href="https://otp.landian.vip/zh-cn/">Office Tool Plus</a></li>
-<li>ppt辅助工具：<a href="https://www.islide.cc/">islide</a></li>
-<li>系统设置与优化：<a href="https://www.chuyu.me/zh-Hans/">Dism++</a></li>
-<li><a href="https://support.microsoft.com/zh-cn/help/17205/windows-10-create-films-with-video-editor">win10自带的视频编辑器</a> <a href="https://zhuanlan.zhihu.com/p/58116160">其他教程</a></li>
-<li>安装软件时路径尽量不要有中文</li>
-<li>注意不要乱安装来路不明的软件</li>
-</ul>
-<h2 id="基本操作">基本操作</h2>
-<ul>
-<li><a href="https://sspai.com/post/45594">关于win10的多虚拟桌面使用</a></li>
-<li><a href="https://www.zhihu.com/question/26812365/answer/850878582">快捷键</a></li>
-<li>截图请使用<code>win+PrtScn</code>（保存在个人文件夹/图片/屏幕截图中）或者<code>win+w</code>中使用"全屏截图"，或者安装<a href="https://zh.snipaste.com/">snipaste</a>，<strong>不要用手机拍屏幕！！！</strong></li>
-</ul>
-<h2 id="硬件外设">硬件(外设)</h2>
-<ul>
-<li><del>考虑到联想国内自带的联想电脑管家弹窗可能有点多，可将其卸载并点击<a href="https://www.microsoft.com/zh-cn/p/lenovo-vantage/9wzdncrfj4mv#activetab=pivot:overviewtab">此处</a>或在win10应用商店中搜索"Lenovo vantage"(其实就是国际版)并安装以替代</del>刚了解了一下，发现它已经从良了，就不用搞了</li>
-<li>由于联想自带的电源适配器过于笨重，可购买<a href="https://item.jd.com/100012368380.html?cu=true&amp;utm_source=kong&amp;utm_medium=tuiguang&amp;utm_campaign=t_1001542270_1001352649_0_1884133294&amp;utm_term=ebb23d1f99d04387a429c9d32341a386">这个</a>(京东学生认证后仅需89，也可购买合适的GaN充电器</li>
-<li>未完待续？</li>
-</ul>
-]]></content>
-      <categories>
-        <category>电脑使用相关</category>
       </categories>
   </entry>
 </search>
