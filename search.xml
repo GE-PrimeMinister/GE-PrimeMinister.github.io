@@ -1244,7 +1244,7 @@ Oct,28th 2018
   <entry>
     <title>Java学习笔记</title>
     <url>/2021/07/10/java%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p><img src="https://img.moegirl.org.cn/common/c/c4/Java.jpg" /></p>
+    <content><![CDATA[<p><img src="https://i.loli.net/2021/07/10/VzOPWAhcM7Grpg1.png" /></p>
 <span id="more"></span>
 <h2 id="程序基本结构">程序基本结构</h2>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; <span class="comment">// 方法名是main</span></span><br><span class="line">        <span class="comment">// 向屏幕输出文本:</span></span><br><span class="line">        System.out.println(<span class="string">&quot;Hello, world!&quot;</span>);</span><br><span class="line">        <span class="comment">/* 多行注释开始</span></span><br><span class="line"><span class="comment">        注释内容</span></span><br><span class="line"><span class="comment">        注释结束 */</span></span><br><span class="line">    &#125;<span class="comment">// 方法定义结束</span></span><br><span class="line">&#125; <span class="comment">// class定义结束</span></span><br></pre></td></tr></table></figure>
